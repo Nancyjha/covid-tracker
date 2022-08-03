@@ -10,7 +10,7 @@ function LineGraph(props){
     datasets: [
         {
     id:1,
-    label: 'My First dataset',
+    label: 'Covid-19 cases by country',
     
     fill: false,
     

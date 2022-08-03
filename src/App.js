@@ -5,7 +5,6 @@ import LineGraph from "./component/LineGraph";
 import axios from "./axios";
 function App() {
   const [totalConfirmed, setTotalConfirmed] = useState(0);
-  const [totalRecovered, setTotalRecovered] = useState(0);
   const [totalDeaths, setTotalDeaths] = useState(0);
   const [loading, setLoading] = useState(true);
   const [covidSummary, setCovidSummary] = useState({});
@@ -21,7 +20,6 @@ function App() {
       .then((res) => {
         if (res.status === 200) { 
           setTotalConfirmed(res.data.Global.TotalConfirmed);
-          setTotalRecovered(res.data.Global.NewRecovered);
           setTotalDeaths(res.data.Global.TotalDeaths);
           setCovidSummary(res.data);
         }
@@ -62,7 +60,6 @@ const formatDate=(date)=>{
       const xAxisLabel=res.data.map(d=>d.Date);
       const covidDetails =covidSummary.Countries.find(country=>country.Slug===countrySlug);
       setTotalConfirmed(covidDetails.TotalConfirmed)
-      setTotalRecovered(covidDetails.TotalRecovered)
       setTotalDeaths(covidDetails.TotalDeaths)
       setCoronaCountAr(yAxisCoronaCount)
       setLabel(xAxisLabel)
@@ -77,7 +74,6 @@ const formatDate=(date)=>{
 
       <CovidSummary
         TotalConfirmed={totalConfirmed === 0 ? 584358167 : totalConfirmed}
-        TotalRecovered={totalRecovered === 0 ? 554989575 : totalRecovered}
         TotalDeaths={totalDeaths === 0 ? 6423934 : totalDeaths}
         counrty={"INDIA"}
       />

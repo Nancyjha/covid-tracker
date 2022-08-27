@@ -8,7 +8,7 @@ function App() {
   const [totalDeaths, setTotalDeaths] = useState(0);
   const [loading, setLoading] = useState(true);
   const [covidSummary, setCovidSummary] = useState({});
-  const[days, setDays] = useState(7);
+  const[days, setDays] = useState("");
   const[country, setCountry] = useState('');
   const[coronaCountAr, setCoronaCountAr] = useState([]);
   const[label,setLabel]=useState([]);
@@ -46,6 +46,10 @@ const formatDate=(date)=>{
   setDays(e.target.value);
   }
   const onButtonClick=()=>{
+    if(country===''|| days===''){
+      alert("Please enter a value from the dropdown");
+      return;
+    }
     const d= new Date();
     const to= formatDate(d)
     const from =formatDate(d.setDate(d.getDate()-days))
@@ -78,7 +82,10 @@ const formatDate=(date)=>{
         counrty={"INDIA"}
       />
       <div style={{ textAlign: "center" ,marginTop:"16px"}}>
-        <select value={country} onChange={countryHandler}>
+        
+        <select  value={country} onChange={countryHandler}>
+        <option value="" disabled selected>Select a country</option>
+
           {covidSummary.Countries &&
             covidSummary.Countries.map((country) => (
               <option key={country.Slug} value={country.Slug}>
@@ -87,6 +94,7 @@ const formatDate=(date)=>{
             ))}
         </select>
         <select value={days} onChange={daysHandler}>
+        <option value="" disabled selected>Select a time span</option>
           <option value='7'>Last 7 days</option>
           <option value='30'>Last 30 days</option>
           <option value='90'>Last 90 days</option>
